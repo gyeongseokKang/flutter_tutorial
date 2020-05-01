@@ -15,26 +15,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-void openPage(BuildContext context) {
-  Navigator.push(context, MaterialPageRoute(
-    builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Second page'),
-        ),
-        body: const Center(
-          child: Text(
-            'This is the Second page',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      );
-    },
-  ));
-}
-
 /// This is the stateless widget that the main application instantiates.
 class MyFirstWidget extends StatelessWidget {
   MyFirstWidget({Key key}) : super(key: key);
@@ -42,25 +22,28 @@ class MyFirstWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
-        title: const Text('AppBar Example'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.navigate_next),
-            tooltip: 'Next page',
-            onPressed: () {
-              openPage(context);
-            },
+        title: const Text('PageView Example'),
+      ),
+      body: PageView(
+        children: <Widget>[
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.green,
+          ),
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.red,
+          ),
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.blue,
           ),
         ],
-      ),
-      body: const Center(
-        child: Text(
-          'This is my first page',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+      )
     );
   }
 }
