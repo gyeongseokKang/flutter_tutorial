@@ -2,51 +2,65 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+/// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  static const String _title = 'Flutter Code Sample';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+      title: _title,
+      home: MyFirstWidget(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-    @override
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+void openPage(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(
+    builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Second page'),
+        ),
+        body: const Center(
+          child: Text(
+            'This is the Second page',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      );
+    },
+  ));
+}
+
+/// This is the stateless widget that the main application instantiates.
+class MyFirstWidget extends StatelessWidget {
+  MyFirstWidget({Key key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
-        title: Text("tutorial for flutter"),
-    ),
-      body:
-       GridView.count(crossAxisCount: 4,
-       children: <Widget>[
-         Container(
-           color: Colors.blue,
-           width: 100,
-           height: 100,
-         ),
-         Container(
-           color: Colors.red,
-           width: 100,
-           height: 100,
-         ),
-         Container(
-           color: Colors.green,
-           width: 100,
-           height: 100,
-         )
-       ],
-       )
-
-
+        title: const Text('AppBar Example'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Next page',
+            onPressed: () {
+              openPage(context);
+            },
+          ),
+        ],
+      ),
+      body: const Center(
+        child: Text(
+          'This is my first page',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
-  
