@@ -25,29 +25,25 @@ class MyHomePage extends StatelessWidget {
         title: Text("tutorial for flutter"),
     ),
       body:
-        ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              trailing: Icon(Icons.navigate_next),
-              onTap: (){},
-            ),
-            ListTile(
-              leading: Icon(Icons.event),
-              title : Text("Event"),
-              trailing: Icon(Icons.navigate_next),
-              onLongPress: (){},
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text('Camera'),
-              trailing: Icon(Icons.navigate_next),
-              onTap: (){},
-            )
-          ],
-        )
+       GridView.count(crossAxisCount: 4,
+       children: <Widget>[
+         Container(
+           color: Colors.blue,
+           width: 100,
+           height: 100,
+         ),
+         Container(
+           color: Colors.red,
+           width: 100,
+           height: 100,
+         ),
+         Container(
+           color: Colors.green,
+           width: 100,
+           height: 100,
+         )
+       ],
+       )
 
 
     );
