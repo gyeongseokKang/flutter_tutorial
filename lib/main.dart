@@ -18,32 +18,57 @@ class MyApp extends StatelessWidget {
 /// This is the stateless widget that the main application instantiates.
 class MyFirstWidget extends StatelessWidget {
   MyFirstWidget({Key key}) : super(key: key);
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    _selectedIndex = index;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PageView Example'),
+        title: const Text('BottomNavigationBar Sample'),
       ),
-      body: PageView(
-        children: <Widget>[
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.green,
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.red,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
           ),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.blue,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('School'),
           ),
         ],
-      )
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.shifting,
+        unselectedItemColor : Colors.red
+      ),
     );
   }
 }
