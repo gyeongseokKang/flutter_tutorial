@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage>
       duration: Duration(seconds: 2),
       vsync: this,
       lowerBound: 1,
-      upperBound: 2,
+      upperBound: 100,
     )..repeat(reverse: true);
     super.initState();
   }
