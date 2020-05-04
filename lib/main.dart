@@ -2,48 +2,88 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-/// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
-      home: MyFirstWidget(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
     );
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
-class MyFirstWidget extends StatelessWidget {
-  MyFirstWidget({Key key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this,
+      lowerBound: 1,
+      upperBound: 2,
+    )..repeat(reverse: true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('PageView Example'),
+      appBar: AppBar(title: const Text('AnimatedWidget Example')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ButtonTransition(width: _controller),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () => _controller.stop(),
+                  child: Text("Stop"),
+                ),
+                Padding(padding: const EdgeInsets.all(8.0)),
+                RaisedButton(
+                  onPressed: () => _controller.repeat(reverse: true),
+                  child: Text("Go"),
+                )
+              ],
+            )
+          ],
+        ),
       ),
-      body: PageView(
-        children: <Widget>[
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.green,
-          ),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.red,
-          ),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.blue,
-          ),
-        ],
-      )
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+}
+
+class ButtonTransition extends AnimatedWidget {
+  const ButtonTransition({width}) : super(listenable: width);
+
+  Animation<double> get _width => listenable;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlineButton(
+      onPressed: () => null,
+      borderSide: BorderSide(
+        width: _width.value,
+      ),
+      child: Text("target widget"),
     );
   }
 }
