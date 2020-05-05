@@ -23,11 +23,8 @@ class MyFirstWidget extends StatelessWidget {
         appBar: AppBar(
           title: const Text('ClipOval Sample'),
         ),
-        body:
-        ClipOval(
-            clipper: MyClipper(),
-            child : Image.asset('images/flutter_logo2.png')
-        )
+        body:Image.asset('images/flutter_logo2.png')
+
     );
   }
 }
