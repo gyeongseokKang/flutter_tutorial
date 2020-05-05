@@ -10,80 +10,37 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: MyFirstWidget(),
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-
-  @override
-  void initState() {
-    _controller = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-      lowerBound: 1,
-      upperBound: 100,
-    )..repeat(reverse: true);
-    super.initState();
-  }
+class MyFirstWidget extends StatelessWidget {
+  MyFirstWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AnimatedWidget Example')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ButtonTransition(width: _controller),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () => _controller.stop(),
-                  child: Text("Stop"),
-                ),
-                Padding(padding: const EdgeInsets.all(8.0)),
-                RaisedButton(
-                  onPressed: () => _controller.repeat(reverse: true),
-                  child: Text("Go"),
-                )
-              ],
-            )
-          ],
+        appBar: AppBar(
+          title: const Text('ClipOval Sample'),
         ),
-      ),
+        body:
+        ClipOval(
+            clipper: MyClipper(),
+            child : Image.asset('images/flutter_logo2.png')
+        )
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
 
-class ButtonTransition extends AnimatedWidget {
-  const ButtonTransition({width}) : super(listenable: width);
-
-  Animation<double> get _width => listenable;
+class MyClipper extends CustomClipper<Rect>{
 
   @override
-  Widget build(BuildContext context) {
-    return OutlineButton(
-      onPressed: () => null,
-      borderSide: BorderSide(
-        width: _width.value,
-      ),
-      child: Text("target widget"),
-    );
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, 0, size.width, size.height);
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) {
+
   }
 }
