@@ -21,23 +21,25 @@ class MyFirstWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ClipOval Sample'),
+          title: const Text('TextField Sample'),
         ),
-        body:Image.asset('images/flutter_logo2.png')
-
+        body: ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            TextField(
+            decoration: InputDecoration(
+              labelText: 'I2를 입력하세요',
+              border: OutlineInputBorder(),
+            ),
+          ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: '22를 입력하세요',
+                border: OutlineInputBorder(),
+              ),
+            )
+          ],
+        )
     );
-  }
-}
-
-class MyClipper extends CustomClipper<Rect>{
-
-  @override
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(0, 0, size.width, size.height);
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) {
-
   }
 }
