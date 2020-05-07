@@ -25,16 +25,16 @@ class MyFirstWidget extends StatelessWidget {
         ),
         body: ListView(
           scrollDirection: Axis.vertical,
+          padding: const EdgeInsets.all(10.0),
           children: <Widget>[
             TextField(
             decoration: InputDecoration(
-              labelText: 'I2를 입력하세요',
-              border: OutlineInputBorder(),
+              labelText: '기본 design',
             ),
           ),
             TextField(
               decoration: InputDecoration(
-                labelText: '22를 입력하세요',
+                labelText: '머터리얼 design',
                 border: OutlineInputBorder(),
               ),
             )
