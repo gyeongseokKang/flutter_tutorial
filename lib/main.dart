@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -10,36 +11,49 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyFirstWidget(),
+      home: FirstPage(),
     );
   }
 }
-class MyFirstWidget extends StatelessWidget {
-  MyFirstWidget({Key key}) : super(key: key);
 
+class FirstPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('TextField Sample'),
+      appBar: AppBar(
+        title: Text("첫 페이지"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('다음 Page'),
+          onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)=>SecondPage()),
+            );
+          },
         ),
-        body: ListView(
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.all(10.0),
-          children: <Widget>[
-            TextField(
-            decoration: InputDecoration(
-              labelText: '기본 design',
-            ),
-          ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: '머터리얼 design',
-                border: OutlineInputBorder(),
-              ),
-            )
-          ],
-        )
+      )
+  ,
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("2번 페이지"),
+      ),
+      body: Center(
+          child : RaisedButton(
+            child: Text('이전 Page'),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          )
+      ),
     );
   }
 }
