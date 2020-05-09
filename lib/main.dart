@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -15,7 +14,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class FirstPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -24,43 +22,30 @@ class FirstPage extends StatelessWidget{
         title: Text("첫 페이지"),
       ),
       body: Center(
-        child: GridView.count(crossAxisCount: 3,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                color: Colors.blue,
-                width: 100,
-                height: 100,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Container(
-                color: Colors.red,
-                width: 100,
-                height: 100,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
-              child: Container(
-                color: Colors.green,
-                padding: EdgeInsets.all(10.0),
-                width: 100,
-                height: 100,
-              ),
-            )
-          ],
+        child: RaisedButton(
+          child: Text('다음 Page'),
+          onPressed: () async{
+            final person = Person('박보검',20);
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)=>SecondPage(person:person)),
+            );
+            print(result);
+          },
+
         ),
       )
-  ,
+      ,
     );
   }
 }
 
+
+
 class SecondPage extends StatelessWidget{
+  final Person person;
+  SecondPage({@required this.person});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,12 +54,18 @@ class SecondPage extends StatelessWidget{
       ),
       body: Center(
           child : RaisedButton(
-            child: Text('이전 Page'),
+            child: Text('넘어온 이름 : '+ person.name),
             onPressed: (){
-              Navigator.pop(context);
+              Navigator.pop(context,'데아터 돌려줌');
             },
-          )
+          ),
       ),
     );
   }
+}
+
+class Person{
+  String name;
+  int age;
+  Person(this.name, this.age);
 }
