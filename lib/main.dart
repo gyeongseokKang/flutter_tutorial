@@ -24,14 +24,35 @@ class FirstPage extends StatelessWidget{
         title: Text("첫 페이지"),
       ),
       body: Center(
-        child: RaisedButton(
-          child: Text('다음 Page'),
-          onPressed: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context)=>SecondPage()),
-            );
-          },
+        child: GridView.count(crossAxisCount: 3,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                color: Colors.blue,
+                width: 100,
+                height: 100,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                color: Colors.red,
+                width: 100,
+                height: 100,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
+              child: Container(
+                color: Colors.green,
+                padding: EdgeInsets.all(10.0),
+                width: 100,
+                height: 100,
+              ),
+            )
+          ],
         ),
       )
   ,
