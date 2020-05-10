@@ -11,6 +11,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: FirstPage(),
+      routes: {
+        '/first' : (context) => FirstPage(),
+        '/second' : (context) => SecondPage(),
+      },
     );
   }
 }
@@ -25,11 +29,7 @@ class FirstPage extends StatelessWidget{
         child: RaisedButton(
           child: Text('다음 Page'),
           onPressed: () async{
-            final person = Person('박보검',20);
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context)=>SecondPage(person:person)),
-            );
+            final result = await Navigator.pushNamed(context, '/second');
             print(result);
           },
 
@@ -43,9 +43,6 @@ class FirstPage extends StatelessWidget{
 
 
 class SecondPage extends StatelessWidget{
-  final Person person;
-  SecondPage({@required this.person});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +51,7 @@ class SecondPage extends StatelessWidget{
       ),
       body: Center(
           child : RaisedButton(
-            child: Text('넘어온 이름 : '+ person.name),
+            child: Text(' 이전 페이지 '),
             onPressed: (){
               Navigator.pop(context,'데아터 돌려줌');
             },
@@ -62,10 +59,4 @@ class SecondPage extends StatelessWidget{
       ),
     );
   }
-}
-
-class Person{
-  String name;
-  int age;
-  Person(this.name, this.age);
 }
