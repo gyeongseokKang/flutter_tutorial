@@ -11,8 +11,29 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
-        body: Center(
-          child: MyStatefulWidget(),
+        body: SafeArea(
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: (){},
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+                trailing: Icon(Icons.navigate_next),
+                onTap: (){},
+              ),
+            ],
+          ),
+          top: true,
+          bottom: true,
+          right: true,
+          left: false,
+          maintainBottomViewPadding: false,
         ),
       ),
     );
