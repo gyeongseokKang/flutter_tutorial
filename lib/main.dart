@@ -1,71 +1,98 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-void main() => runApp(MyApp());
 
-/// This Widget is the main application widget.
+void main() {
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks(
+      ['my_package'],
+      'Blah blah.',
+    );
+  });
+  runApp(MyApp());
+}
+
 class MyApp extends StatelessWidget {
-  static const String _title = 'CheckboxListTile Example';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: SafeArea(
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                trailing: Icon(Icons.navigate_next),
-                onTap: (){},
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                trailing: Icon(Icons.navigate_next),
-                onTap: (){},
-              ),
-            ],
-          ),
-          top: true,
-          bottom: true,
-          right: true,
-          left: false,
-          maintainBottomViewPadding: false,
-        ),
+      title: 'AboutDialog App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    AboutDialog();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AboutDialog, MaterialButton'),
+      ),
+      body: Center(
+        child: MyMenu(),
       ),
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  bool _ischecked = false;
+class MyMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: const Text('title : CheckBox'),
-      subtitle: const Text('subtitle : click me!'),
-      value: _ischecked,
-      onChanged: (bool value) {
-        setState(() {
-          _ischecked = value;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        MaterialButton(
+          onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('Sorry, not implemented.'),
+          )),
+          color: Colors.pink,
+          textColor: Colors.white,
+          child: Text('MaterialButton'),
+        ),
+        MaterialButton(
+          onPressed: () {
+            showAboutDialog(
+              context: context,
+              applicationVersion: 'App version : 1.0.0',
+              applicationIcon: MyAppIcon(),
+              applicationName: 'App name : Example',
+              applicationLegalese:
+              'This application is example code for everyone',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text('This is where I\'d put more information about '
+                      'this app, if there was anything interesting to say.'),
+                ),
+              ],
+            );
+          },
+          child: Text('showAboutDialog'),
+        ),
+      ],
+    );
+  }
+}
 
-        });
-      },
-      secondary: const Icon(Icons.home),
-      activeColor: Colors.red,
-      checkColor: Colors.black,
-      isThreeLine: false,
-      selected: _ischecked,
+class MyAppIcon extends StatelessWidget {
+  static const double size = 32;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: FlutterLogo(),
+        ),
+      ),
     );
   }
 }
