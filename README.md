@@ -1,10 +1,7 @@
 # flutter_tutorial
-
-A new Flutter widget test application.
+flutter를 써보면서 각 위젯에 대한 글도 써보고 써본김에 앱도 만들어보는 Repo
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
 
 If you want to know more infomation, please visit my dev-site ->
 
